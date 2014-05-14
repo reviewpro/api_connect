@@ -20,10 +20,10 @@ def main():
     connect = Connect.Connect("<your api_key>", "<your shared sec>")
     j = json.dumps({
         "id": 102531,
-        "source": "LimeSurvey CSQ Hotel: 83451",
+        "source": "LimeSurvey CSQ Hotel: ",
         "reviews": [
             {
-                "title": "Survey para Hotel Ahotels Piolets Park SPA",
+                "title": "Survey para Hotel ReviewPro",
                 "text": "",
                 "author": "SAMPLE AUTHOR NAME",
                 "email": "sampleaddress@example.es",
