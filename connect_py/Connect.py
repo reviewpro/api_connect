@@ -13,10 +13,8 @@ __author__ = 'Dimitry Lvovsky, dimitry@reviewpro.com'
 #    License for the specific language governing permissions and limitations
 #    under the License.
 import requests
-import time
 import hashlib
 import time
-
 
 class Connect():
     DEFAULT_URL = "http://connect.reviewpro.com"
@@ -27,10 +25,10 @@ class Connect():
     PIDS_FOR_ACCOUNT_URL = "/v1/account/lodgings"
     DAILY_INDEX_URL = "/v1/lodging/index/daily"
     LODGIN_DIST_URL = "/v1/lodging/review/rating/distribution"
+
     def __init__(self, api_key, api_sec):
         self.__api_key = api_key
         self.__api_sec = api_sec
-
 
     def fetchDailyIndexForRating(self, pid, fd, td, rt, max_error=3):
         params = {"pid": pid, "fd": fd, "td": td, "rt": rt}
@@ -110,7 +108,6 @@ class Connect():
             print "endpoint %s responded with error code %s, error %s out of %s, sleeping for %s sec" % (url, resp.status_code, error_count, max_error, error_count ** 2)
             time.sleep(error_count ** 2)
 
-
     def pushCSQ(self, data, pid, max_error=3):
         url = Connect.DEFAULT_URL + Connect.CSQ_URL
         print url
@@ -120,7 +117,7 @@ class Connect():
         headers = {'content-type': 'application/json'}
         return requests.post(url, data=data, headers=headers, params=params)
 
-# private methods
+    # private methods
     def __add_signature(self, params):
         m = hashlib.sha256()
         m.update(str.encode(self.__api_key + self.__api_sec + repr(int(time.time()))))
