@@ -1,5 +1,7 @@
 <?php
 /**
+ * @author Gerard Montes <gerard.montes@reviewpro.com>
+ *
  * Copyright 2014 ReviewRank S.A ( ReviewPro )
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -13,8 +15,6 @@
  *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  *  License for the specific language governing permissions and limitations
  *  under the License.
- *
- *  @author Gerard Montes <gmvelencoso@gmail.com>
  */
 
 class Connect {
