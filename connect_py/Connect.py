@@ -18,6 +18,7 @@ import time
 
 class Connect():
     DEFAULT_URL = "http://connect.reviewpro.com"
+    DEFAULT_HTTPS_URL = "https://connect.reviewpro.com"
     REVIEW_SUMMARIES_URL = "/v1/lodging/review/summaries"
     CSQ_URL = "/v1/lodging/csq"
     REVIEW_AVAILABLE_SRC_URL = "/v1/lodging/sources/available"
@@ -25,6 +26,7 @@ class Connect():
     PIDS_FOR_ACCOUNT_URL = "/v1/account/lodgings"
     DAILY_INDEX_URL = "/v1/lodging/index/daily"
     LODGIN_DIST_URL = "/v1/lodging/review/rating/distribution"
+    REVENUE_INDEXES_URL = "/v1/lodging/revenueindexes"
 
     def __init__(self, api_key, api_sec):
         self.__api_key = api_key
@@ -112,6 +114,14 @@ class Connect():
         url = Connect.DEFAULT_URL + Connect.CSQ_URL
         print url
         params = {"pid": pid}
+        self.__add_api_key(params)
+        self.__add_signature(params)
+        headers = {'content-type': 'application/json'}
+        return requests.post(url, data=data, headers=headers, params=params)
+
+    def postRevenueIndexes(self, data):
+        url = Connect.DEFAULT_HTTPS_URL + Connect.REVENUE_INDEXES_URL
+        params = {}
         self.__add_api_key(params)
         self.__add_signature(params)
         headers = {'content-type': 'application/json'}
