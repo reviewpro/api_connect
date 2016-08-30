@@ -23,6 +23,7 @@ class Connect():
     CSQ_URL = "/v1/lodging/csq"
     REVIEW_AVAILABLE_SRC_URL = "/v1/lodging/sources/available"
     PUBLISHED_REVIEWS_SRC_URL = "/v1/lodging/review/published"
+    MANAGEMENT_RESPONSES_URL =  "/v1/lodging/review/responses"
     PIDS_FOR_ACCOUNT_URL = "/v1/account/lodgings"
     DAILY_INDEX_URL = "/v1/lodging/index/daily"
     LODGIN_DIST_URL = "/v1/lodging/review/rating/distribution"
@@ -101,6 +102,20 @@ class Connect():
         params = {'aid':'143'}
         self.__add_api_key(params)
         url = Connect.DEFAULT_URL + Connect.PIDS_FOR_ACCOUNT_URL
+        error_count = 0
+        while error_count < max_error:
+            resp = requests.get(url, params=params)
+            if resp.status_code == requests.codes.ok:
+                return resp.json()
+            error_count += 1
+            print "endpoint %s responded with error code %s, error %s out of %s, sleeping for %s sec" % (url, resp.status_code, error_count, max_error, error_count ** 2)
+            time.sleep(error_count ** 2)
+
+    def fetchManagementResponses(self, pid, fd, td, max_error=3):
+        params = {"pid": pid, "fd": fd, "td": td}
+        self.__add_api_key(params)
+        url = Connect.DEFAULT_URL + Connect.MANAGEMENT_RESPONSES_URL
+        print url
         error_count = 0
         while error_count < max_error:
             resp = requests.get(url, params=params)

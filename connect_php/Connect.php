@@ -23,6 +23,7 @@ class Connect {
     public $CSQ_URL = '/v1/lodging/csq';
     public $REVIEW_AVAILABLE_SRC_URL = '/v1/lodging/sources/available';
     public $PUBLISHED_REVIEWS_SRC_URL = '/v1/lodging/review/published';
+    public $MANAGEMENT_RESPONSES_URL =  '/v1/lodging/review/responses';
     public $PIDS_FOR_ACCOUNT_URL = '/v1/account/lodgings';
     public $DAILY_INDEX_URL = '/v1/lodging/index/daily';
     public $LODGING_DIST_URL = '/v1/lodging/review/rating/distribution';
@@ -136,10 +137,10 @@ class Connect {
     }
 
     // Reviews
-    function fetch_published_reviews($pid, $max_errors=3) {
+    function fetch_published_reviews($pid, $max_error=3) {
         $endpoint = $this->PUBLISHED_REVIEWS_SRC_URL;
         $url = "$this->DEFAULT_URL$endpoint?pid=$pid&api_key=$this->api_key";
-        return $this->make_get_request($url, $max_errors, $endpoint);
+        return $this->make_get_request($url, $max_error, $endpoint);
     }
 
     // Reviews Summary
@@ -150,22 +151,28 @@ class Connect {
     }
 
     // Account
-    function fetch_pids_for_account($max_errors=3) {
+    function fetch_pids_for_account($max_error=3) {
         $endpoint = $this->PIDS_FOR_ACCOUNT_URL;
         $url = "$this->DEFAULT_URL$endpoint?api_key=$this->api_key";
-        return $this->make_get_request($url, $max_errors, $endpoint);
+        return $this->make_get_request($url, $max_error, $endpoint);
     }
 
+    // Management Responses
+    function fetch_management_responses($pid, $fd, $td, $max_error=3) {
+        $endpoint = $this->MANAGEMENT_RESPONSES_URL;
+        $url = "$this->DEFAULT_URL$endpoint?pid=$pid&fd=$fd&td=$td&api_key=$this->api_key";
+        return $this->make_get_request($url, $max_error, $endpoint);
+    }
 
     /*
      * Upload a CSQ Review, $data must be a well-formed JSON.
      * @return string json response with response code.
      * */
-    function pushCSQ($pid, $data, $max_errors=3) {
+    function pushCSQ($pid, $data, $max_error=3) {
         $endpoint = $this->CSQ_URL;
         $sig = $this->generate_signature();
         $url = "$this->DEFAULT_URL$endpoint?pid=$pid&api_key=$this->api_key&sig=$sig";
-        return $this->make_post_request($url, $data, $max_errors, $endpoint);
+        return $this->make_post_request($url, $data, $max_error, $endpoint);
     }
 
     /*

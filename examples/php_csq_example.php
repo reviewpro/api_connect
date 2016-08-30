@@ -29,6 +29,7 @@ $fd = '2014-01-01';
 $td = '2015-01-01';
 $rt = 'OVERALL';
 
+include('../connect_php/Connect.php');
 // creates a connect object
 $connect = new Connect($api_key, $api_sec);
 
@@ -38,6 +39,7 @@ $resp = $connect->fetch_daily_distribution($pid, $fd, $td, $rt); echo $resp."\n\
 $resp = $connect->fetch_available_sources($pid, $fd, $td); echo $resp."\n\n";
 $resp = $connect->fetch_pids_for_account(); echo $resp."\n\n";
 $resp = $connect->fetch_published_reviews($pid); echo $resp."\n\n";
+$resp = $connect->fetch_management_responses($pid, $fd, $td); echo $resp."\n\n";
 
 $data = json_encode(
     array(
