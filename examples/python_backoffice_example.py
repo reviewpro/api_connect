@@ -36,11 +36,8 @@ def main():
     resp = connect.postBackofficeUser(data)
     print "Backoffice post user returns " + str(resp.status_code) + " (expected 400)"
 
-    resp = connect.deleteBackofficeUser("fakeUsername12345", 54321)
+    resp = connect.deleteBackofficeUser("fakeUsername12345")
     print "Backoffice delete user returns " + str(resp.status_code) + " (expected 403)"
-
-    resp = connect.deleteBackofficeProduct("fakeUsername12345", None)
-    print "Backoffice delete user (without sourceType) returns " + str(resp.status_code) + " (expected 400)"
 
 
 if __name__ == "__main__":

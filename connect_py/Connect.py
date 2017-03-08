@@ -168,12 +168,9 @@ class Connect():
         headers = {'content-type': 'application/json'}
         return requests.post(url, data=data, headers=headers, params=params)
 
-    def deleteBackofficeUser(self, username, dpid):
+    def deleteBackofficeUser(self, username):
         url = Connect.DEFAULT_HTTPS_URL + Connect.BACKOFFICE_USER_URL + "/" + username
-        if dpid is None:
-            params = {}
-        else:
-            params = {"sourceType": dpid}
+        params = {}
         self.__add_api_key(params)
         self.__add_signature(params)
         headers = {'content-type': 'application/json'}
