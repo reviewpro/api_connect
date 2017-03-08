@@ -28,6 +28,8 @@ class Connect():
     DAILY_INDEX_URL = "/v1/lodging/index/daily"
     LODGIN_DIST_URL = "/v1/lodging/review/rating/distribution"
     REVENUE_INDEXES_URL = "/v1/lodging/revenueindexes"
+    BACKOFFICE_PRODUCT_URL = "/bo/v1/product"
+    BACKOFFICE_USER_URL = "/bo/v1/user"
 
     def __init__(self, api_key, api_sec):
         self.__api_key = api_key
@@ -141,6 +143,41 @@ class Connect():
         self.__add_signature(params)
         headers = {'content-type': 'application/json'}
         return requests.post(url, data=data, headers=headers, params=params)
+
+    def postBackofficeProduct(self, data):
+        url = Connect.DEFAULT_HTTPS_URL + Connect.BACKOFFICE_PRODUCT_URL
+        params = {}
+        self.__add_api_key(params)
+        self.__add_signature(params)
+        headers = {'content-type': 'application/json'}
+        return requests.post(url, data=data, headers=headers, params=params)
+
+    def deleteBackofficeProduct(self, ppid, dpid):
+        url = Connect.DEFAULT_HTTPS_URL + Connect.BACKOFFICE_PRODUCT_URL + "/" + ppid
+        params = {"sourceType": dpid}
+        self.__add_api_key(params)
+        self.__add_signature(params)
+        headers = {'content-type': 'application/json'}
+        return requests.delete(url, headers=headers, params=params)
+
+    def postBackofficeUser(self, data):
+        url = Connect.DEFAULT_HTTPS_URL + Connect.BACKOFFICE_USER_URL
+        params = {}
+        self.__add_api_key(params)
+        self.__add_signature(params)
+        headers = {'content-type': 'application/json'}
+        return requests.post(url, data=data, headers=headers, params=params)
+
+    def deleteBackofficeUser(self, username, dpid):
+        url = Connect.DEFAULT_HTTPS_URL + Connect.BACKOFFICE_USER_URL + "/" + username
+        if dpid is None:
+            params = {}
+        else:
+            params = {"sourceType": dpid}
+        self.__add_api_key(params)
+        self.__add_signature(params)
+        headers = {'content-type': 'application/json'}
+        return requests.delete(url, headers=headers, params=params)
 
     # private methods
     def __add_signature(self, params):
