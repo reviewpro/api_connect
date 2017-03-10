@@ -30,14 +30,20 @@ def main():
     resp = connect.postBackofficeProduct(data)
     print "Backoffice post product returns " + str(resp.status_code) + " (expected 400)"
 
+    resp = connect.getBackofficeProduct("a1b2c3d4e5", 54321)
+    print "Backoffice get product returns " + str(resp.status_code) + " (expected 403)"
+
     resp = connect.deleteBackofficeProduct("a1b2c3d4e5", 54321)
     print "Backoffice delete product returns " + str(resp.status_code) + " (expected 403)"
 
     resp = connect.postBackofficeUser(data)
     print "Backoffice post user returns " + str(resp.status_code) + " (expected 400)"
 
+    resp = connect.getBackofficeUser("fakeUsername12345", 54321)
+    print "Backoffice get user returns " + str(resp.status_code) + " (expected 403)"
+
     resp = connect.deleteBackofficeUser("fakeUsername12345")
-    print "Backoffice delete user returns " + str(resp.status_code) + " (expected 403)"
+    print "Backoffice delete user returns " + str(resp.status_code) + " (expected 404)"
 
 
 if __name__ == "__main__":

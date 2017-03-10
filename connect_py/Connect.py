@@ -152,6 +152,14 @@ class Connect():
         headers = {'content-type': 'application/json'}
         return requests.post(url, data=data, headers=headers, params=params)
 
+    def getBackofficeProduct(self, ppid, dpid):
+        url = Connect.DEFAULT_HTTPS_URL + Connect.BACKOFFICE_PRODUCT_URL + "/" + ppid
+        params = {"sourceType": dpid}
+        self.__add_api_key(params)
+        self.__add_signature(params)
+        headers = {'content-type': 'application/json'}
+        return requests.get(url, headers=headers, params=params)
+
     def deleteBackofficeProduct(self, ppid, dpid):
         url = Connect.DEFAULT_HTTPS_URL + Connect.BACKOFFICE_PRODUCT_URL + "/" + ppid
         params = {"sourceType": dpid}
@@ -167,6 +175,14 @@ class Connect():
         self.__add_signature(params)
         headers = {'content-type': 'application/json'}
         return requests.post(url, data=data, headers=headers, params=params)
+
+    def getBackofficeUser(self, username, dpid):
+        url = Connect.DEFAULT_HTTPS_URL + Connect.BACKOFFICE_USER_URL + "/" + username
+        params = {"sourceType": dpid}
+        self.__add_api_key(params)
+        self.__add_signature(params)
+        headers = {'content-type': 'application/json'}
+        return requests.get(url, headers=headers, params=params)
 
     def deleteBackofficeUser(self, username):
         url = Connect.DEFAULT_HTTPS_URL + Connect.BACKOFFICE_USER_URL + "/" + username
