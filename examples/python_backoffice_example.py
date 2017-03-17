@@ -30,8 +30,14 @@ def main():
     resp = connect.postBackofficeProduct(data)
     print "Backoffice post product returns " + str(resp.status_code) + " (expected 400)"
 
+    resp = connect.putBackofficeProduct("a1b2c3d4e5", data)
+    print "Backoffice put product returns " + str(resp.status_code) + " (expected 400)"
+
     resp = connect.getBackofficeProduct("a1b2c3d4e5", 54321)
     print "Backoffice get product returns " + str(resp.status_code) + " (expected 403)"
+
+    resp = connect.listBackofficeProduct(54321)
+    print "Backoffice list products returns " + str(resp.status_code) + " (expected 403)"
 
     resp = connect.deleteBackofficeProduct("a1b2c3d4e5", 54321)
     print "Backoffice delete product returns " + str(resp.status_code) + " (expected 403)"
@@ -39,8 +45,14 @@ def main():
     resp = connect.postBackofficeUser(data)
     print "Backoffice post user returns " + str(resp.status_code) + " (expected 400)"
 
+    resp = connect.putBackofficeUser("fakeUsername12345", data)
+    print "Backoffice put user returns " + str(resp.status_code) + " (expected 400)"
+
     resp = connect.getBackofficeUser("fakeUsername12345", 54321)
     print "Backoffice get user returns " + str(resp.status_code) + " (expected 403)"
+
+    resp = connect.listBackofficeUser()
+    print "Backoffice list users returns " + str(resp.status_code) + " (expected 200)"
 
     resp = connect.deleteBackofficeUser("fakeUsername12345")
     print "Backoffice delete user returns " + str(resp.status_code) + " (expected 404)"
