@@ -136,6 +136,15 @@ class Connect():
         headers = {'content-type': 'application/json'}
         return requests.post(url, data=data, headers=headers, params=params)
 
+    def pushCSQXML(self, data, pid, max_error=3):
+        url = Connect.DEFAULT_URL + Connect.CSQ_URL
+        print url
+        params = {"pid": pid}
+        self.__add_api_key(params)
+        self.__add_signature(params)
+        headers = {'content-type': 'application/xml'}
+        return requests.post(url, data=data, headers=headers, params=params)
+
     def postRevenueIndexes(self, data):
         url = Connect.DEFAULT_HTTPS_URL + Connect.REVENUE_INDEXES_URL
         params = {}
